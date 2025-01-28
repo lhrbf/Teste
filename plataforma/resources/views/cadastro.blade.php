@@ -13,10 +13,14 @@
           CADASTRO
         </div>
         <div class="card-body">
-            <form>
+            <form method="POST" action="{{ route('cadastro') }}">
                 <div>
                     <label for="name" class="form-label">Nome completo</label>
                     <input type="text" class="form-control" id="name" placeholder="Digite seu nome completo" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Digite o Email" required>
                 </div>
                 <div class="mb-3">
                     <label for="cpf" class="form-label">CPF</label>
@@ -47,17 +51,15 @@
                 <div class="mt-3">
                     <label for="inputPassword" class="form-label">Senha</label>
                     <input type="password" id="inputPassword" class="form-control" aria-describedby="passwordHelpBlock" required>
+                    <input type="password" id="inputPasswordConfirmation" name="passwordConfirmation" placeholder="Confirme a senha" required>
                 </div>
                 <div id="passwordHelpBlock" class="form-text">
                     Sua senha deve conter entre 8 e 20 caracteres, incluindo letras e números, e não pode conter espaços ou caracteres especiais.
                 </div>
                 <div class="mt-3">
-                    <button type="submit" class="btn btn-primary mb-3">Entrar</button>
+                    <button type="submit" class="btn btn-primary mb-3">Cadastrar</button>
                 </div>
             </form>
-        </div>
-        <div class="card-footer text-body-secondary">
-            <a href="#" class="btn btn-primary">Não tem login? Clique aqui</a>
         </div>
     </div>
 
@@ -100,6 +102,17 @@
                     }
                 })
                 .catch(() => alert('Erro ao buscar o CEP!'));
+            }
+        });
+
+        const form = document.querySelector('form');
+            form.addEventListener('submit', (event) => {
+                const password = document.getElementById('inputPassword').value;
+                const confirmPassword = document.getElementById('inputPasswordConfirmation').value;
+
+            if (password !== confirmPassword) {
+                event.preventDefault();
+                alert('As senhas não coincidem!');
             }
         });
     </script>

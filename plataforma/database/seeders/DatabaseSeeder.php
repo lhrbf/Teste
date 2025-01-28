@@ -14,15 +14,15 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        User::factory(200)->create();
+        User::factory(450)->create();
 
-        Deposito::factory(300)->create();
+        Deposito::factory(600)->create();
 
-        Cadastro::factory(200)->create();
+        Cadastro::factory(400)->create();
 
-        Ftd::factory(180)->create();
+        Ftd::factory(300)->create();
 
-        Login::factory(310)->create();
+        Login::factory(820)->create();
 
     }
 }

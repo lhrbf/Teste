@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\GraficoController;
 use App\Http\Controllers\Api\GraficoInicial;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 // Get
 Route::get('/', [LoginController::class, 'showLoginForm'])->middleware('guest');
@@ -23,4 +24,5 @@ Route::get('/api/grafico/inicial', [GraficoInicial::class,'getGraficoInicial']);
 // Post
 Route::post('/api/grafico/filtro', [GraficoController::class, 'filtroData']);
 Route::post('/', [LoginController::class, 'login'])->name('login');
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
