@@ -3,63 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>{{ config('cadastro', 'Laravel') }}</title>
 </head>
 <body>
-    <div class="card text-center">
-        <div class="card-header">
-          CADASTRO
-        </div>
-        <div class="card-body">
-            <form method="POST" action="{{ route('cadastro') }}">
-                <div>
-                    <label for="name" class="form-label">Nome completo</label>
-                    <input type="text" class="form-control" id="name" placeholder="Digite seu nome completo" required>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Digite o Email" required>
-                </div>
-                <div class="mb-3">
-                    <label for="cpf" class="form-label">CPF</label>
-                    <input type="text" class="form-control" id="cpf" placeholder="Digite o CPF" required>
-                </div>
-                <div>
-                    <label for="estado">Selecione um estado</label>
-                    <select id="estado" class="form-control" name="estado" required>
-                        <option value="">Selecione um estado</option>
-                    </select>
-                </div>
-                <div class="mt-3">
-                    <label for="cep">CEP</label>
-                    <input type="text" id="cep" class="form-control" name="cep" placeholder="Digite o CEP" required>
-                </div>
-                <div class="mt-3">
-                    <label for="rua">Rua</label>
-                    <input type="text" id="rua" class="form-control" name="rua" placeholder="Digite o nome da rua" required>
-                </div>
-                <div class="form-group mt-3">
-                    <label for="numero">Número</label>
-                    <input type="text" id="numero" class="form-control" placeholder="Número da residência" required>
-                </div>
-                <div class="mt-3">
-                    <label for="inputNumber" class="form-label">Número de telefone</label>
-                    <input type="text" id="inputNumber" class="form-control" placeholder="Digite o número de telefone" required>
-                </div>
-                <div class="mt-3">
-                    <label for="inputPassword" class="form-label">Senha</label>
-                    <input type="password" id="inputPassword" class="form-control" aria-describedby="passwordHelpBlock" required>
-                    <input type="password" id="inputPasswordConfirmation" name="passwordConfirmation" placeholder="Confirme a senha" required>
-                </div>
-                <div id="passwordHelpBlock" class="form-text">
-                    Sua senha deve conter entre 8 e 20 caracteres, incluindo letras e números, e não pode conter espaços ou caracteres especiais.
-                </div>
-                <div class="mt-3">
-                    <button type="submit" class="btn btn-primary mb-3">Cadastrar</button>
-                </div>
-            </form>
+    <div>
+        <a href="javascript:history.back()"><i id="voltarBtn" class="bi bi-arrow-return-left text-primary fs-1 py-0 px-2 mt-2 ms-2 btn btn-outline-primary"></i></a>
+    </div>
+    
+    <div class="container">
+        <div class="card text-center my-5 border-primary-subtle">
+            <div class="card-header bg-body-tertiary fw-medium border-primary-subtle">
+              CADASTRO
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ route('register') }}">
+                    <div class="row justify-content-center d-flex mb-3">
+                        <label for="name" class="col-12 w-75 justify-content-start d-flex form-label">Nome completo</label>
+                        <input type="text" class="border-primary-subtle col-12 w-75 form-control" id="name" placeholder="Digite seu nome completo" required>
+                    </div>
+                    <div class="row justify-content-center d-flex mb-3">
+                        <label for="email" class="col-12 w-75 justify-content-start d-flex form-label">Email</label>
+                        <input type="email" class="border-primary-subtle col-12 w-75 form-control" id="email" placeholder="Digite o Email" required>
+                    </div>
+                    <div class="row justify-content-center d-flex mb-3">
+                        <label for="cpf" class="col-12 w-75 justify-content-start d-flex form-label">CPF</label>
+                        <input type="text" class="border-primary-subtle col-12 w-75 form-control" id="cpf" placeholder="Digite o CPF" required>
+                    </div>
+                    <div class="row justify-content-center d-flex" >
+                        <label for="estado" class="w-75 justify-content-start d-flex">Selecione um estado</label>
+                        <select id="estado" class="border-primary-subtle col-12 w-75 form-control" name="estado" required>
+                            <option value="">Selecione um estado</option>
+                        </select>
+                    </div>
+                    <div class="row justify-content-center d-flex mt-3">
+                        <label for="cep" class="w-75 justify-content-start d-flex">CEP</label>
+                        <input type="text" id="cep" class="border-primary-subtle col-12 w-75 form-control" name="cep" placeholder="Digite o CEP" required>
+                    </div>
+                    <div class="row justify-content-center d-flex mt-3">
+                        <label for="rua" class="w-75 justify-content-start d-flex">Rua</label>
+                        <input type="text" id="rua" class="border-primary-subtle col-12 w-75 form-control" name="rua" placeholder="Digite o nome da rua" required>
+                    </div>
+                    <div class="row justify-content-center d-flex form-group mt-3">
+                        <label for="numero" class="w-75 justify-content-start d-flex">Número</label>
+                        <input type="number" id="numero" class="border-primary-subtle col-12 w-75 form-control" placeholder="Número da residência" required>
+                    </div>
+                    <div class="row justify-content-center d-flex mt-3">
+                        <label for="inputNumber" class="col-12 w-75 justify-content-start d-flex form-label">Número de telefone</label>
+                        <input type="tel" id="inputNumber" class="border-primary-subtle col-12 w-75 form-control" placeholder="Digite o número de telefone" required>
+                    </div>
+                    <div class="row justify-content-center d-flex mt-3">
+                        <label for="inputPassword" class="col-12 w-75 justify-content-start d-flex form-label">Senha</label>
+                        <input type="password" id="inputPassword" name="password" class="border-primary-subtle col-12 w-75 form-control" placeholder="Digite uma Senha" aria-describedby="passwordHelpBlock" required>
+                    </div>
+                    <div class="row justify-content-center d-flex mt-3"> 
+                        <label for="inputPassword" class="col-12 w-75 justify-content-start d-flex form-label">Confirme a Senha</label>
+                        <input type="password" id="inputPasswordConfirmation" class="border-primary-subtle col-12 w-75 form-control" name="passwordConfirmation" placeholder="Confirme a senha" required>
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary w-auto px-4 my-2 fs-5">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 

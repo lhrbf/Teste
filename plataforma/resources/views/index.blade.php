@@ -7,43 +7,17 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>{{ config('index', 'Laravel') }}</title>
 </head>
-    <body>
-        <div class="card text-center">
-            <div class="card-header">
-                LOGIN
-            </div>
-            <div class="card-body">
-                <form method="POST" action="{{ route('/') }}">
-                    @csrf
-                    
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control" id="email" placeholder="Digite o Email" required>
-                    </div>
-                    
-                    <div>
-                        <label for="inputPassword" class="form-label">Password</label>
-                        <input type="password" name="password" id="inputPassword" class="form-control" required>
-                    </div>
-                    
-                    <div id="passwordHelpBlock" class="form-text">
-                        Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-                    </div>
-                    
-                    <div>
-                        <button type="submit" class="btn btn-primary mb-3">Entrar</button>
-                    </div>
-                </form>
-        
-                <div class="card-footer text-body-secondary">
-                    <a href="#" class="btn btn-primary">Não tem login? Clique aqui</a>
-                </div>
-            </div>
+<body>
+    <div class="d-flex justify-content-center mt-5 pt-5">
+        <div class="mt-5 spinner-border text-info fs-5" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
-        
-                
-        <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.6/dist/inputmask.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      </div>
 
-    </body>
+      <script>
+        setTimeout(function() {
+            window.location.href = "{{ route('login') }}";
+        }, 4000);
+    </script>
+</body>
 </html>
