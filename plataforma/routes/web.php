@@ -36,9 +36,4 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 // Rota POST para logout
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Rotas protegidas
-Route::middleware(['auth'])->group(function () {
-    Route::get('/grafico', function () {
-        return view('pageGrafico');
-    });
-});
+Route::get('/grafico', [UserController::class,'pageGrafico'])->name('grafico');

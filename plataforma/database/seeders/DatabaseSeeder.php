@@ -8,21 +8,20 @@ use App\Models\Deposito;
 use App\Models\Cadastro;
 use App\Models\Ftd;
 use App\Models\Login;
-use App\Models\Visita;
 
 class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        User::factory(450)->create();
+        User::factory(150)->create();
 
-        Deposito::factory(600)->create();
+        Deposito::factory(250)->create();
 
-        Cadastro::factory(400)->create();
+        Cadastro::factory(150)->create();
 
-        Ftd::factory(300)->create();
+        Ftd::factory(170)->create();
 
-        Login::factory(820)->create();
+        Login::factory(320)->create();
 
     }
 }

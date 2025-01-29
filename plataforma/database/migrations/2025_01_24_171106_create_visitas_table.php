@@ -16,7 +16,8 @@ return new class extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
             $table->dateTime('data_visita');
-
+            $table->string('local')->nullable();
+            
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
