@@ -23,6 +23,6 @@ class DatabaseSeeder extends Seeder
         Ftd::factory(170)->create();
 
         Login::factory(320)->create();
-
-    }
+        
+        Visita::factory(400)->create();
 }
