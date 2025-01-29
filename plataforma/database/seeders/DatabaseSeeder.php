@@ -25,4 +25,5 @@ class DatabaseSeeder extends Seeder
         Login::factory(320)->create();
         
         Visita::factory(400)->create();
-}
+    }
+};
