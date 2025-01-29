@@ -8,6 +8,7 @@ use App\Models\Deposito;
 use App\Models\Cadastro;
 use App\Models\Ftd;
 use App\Models\Login;
+use App\Models\Visita;
 use Carbon\Carbon;
 
 class TresMeses extends Seeder
