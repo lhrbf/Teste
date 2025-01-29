@@ -35,5 +35,10 @@ class TresMeses extends Seeder
                 'last_login_at' => Carbon::yesterday()->subMonths(3)->setTime(8, 30, 0),
             ]);
         });
+        Visita::factory(400)->create()->each(function ($visita) {
+             $visita->update([
+                'data_visita' => Carbon::yesterday()->subMonths(3)->addDays(rand(0, 90))->startOfDay(),
+            ]);
+        });
     }
 }
