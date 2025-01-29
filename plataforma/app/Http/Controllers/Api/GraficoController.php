@@ -17,8 +17,8 @@ class GraficoController extends Controller
     {
         $validated = $request->validate([
             'periodo' => 'required|integer|in:1,2,3,4,5',
-            'startDate' => 'nullable|date',
-            'endDate' => 'nullable|date',
+            'startDate' => 'nullable|date|date_format:Y-m-d',
+            'endDate' => 'nullable|date|date_format:Y-m-d',
         ]);
 
         $periodo = $validated['periodo'];

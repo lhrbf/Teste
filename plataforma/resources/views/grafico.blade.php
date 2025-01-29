@@ -97,54 +97,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-
-    // filtro de período para o gráfico
-    document.getElementById('periodo').addEventListener('change', () => {
-        const periodo = document.getElementById('periodo').value;
-        const startDateInput = document.getElementById('startDate');
-        const endDateInput = document.getElementById('endDate');
-
-        let startDate = '';
-        let endDate = '';
-
-        switch (periodo) {
-            case '1':
-                startDate = new Date().toISOString().split('T')[0];
-                endDate = startDate;
-                break;
-            case '2':
-                const yesterday = new Date();
-                yesterday.setDate(yesterday.getDate() - 1);
-                startDate = yesterday.toISOString().split('T')[0];
-                endDate = startDate;
-                break;
-            case '3':
-                const sevenDaysAgo = new Date();
-                sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-                startDate = sevenDaysAgo.toISOString().split('T')[0];
-                endDate = new Date().toISOString().split('T')[0];
-                break;
-            case '4':
-                const oneMonthAgo = new Date();
-                oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-                startDate = oneMonthAgo.toISOString().split('T')[0];
-                endDate = new Date().toISOString().split('T')[0];
-                break;
-            case '5':
-                const threeMonthsAgo = new Date();
-                threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
-                startDate = threeMonthsAgo.toISOString().split('T')[0];
-                endDate = new Date().toISOString().split('T')[0];
-                break;
-            default:
-                return;
-        }
-
-        startDateInput.value = startDate;
-        endDateInput.value = endDate;
-    });
-
-    // gráfico inicial
+// Gráfico inicial
     let graficoInicial;
 
     const labels = ['Dados filtrados por período']
@@ -159,187 +112,197 @@
             const inicioLogins = [data.totalLogins];
             const inicioCadastros = [data.totalCadastros];
 
-        graficoInicial = new Chart(document.getElementById('myChart').getContext('2d'), {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Depósitos',
-                        data: inicioDepositos,
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderWidth: 2,
-                    },
-                    {
-                        label: 'Visitas',
-                        data: inicioVisitas,
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderWidth: 2,
-                    },
-                    {
-                        label: 'FTDs',
-                        data: inicioFtds,
-                        borderColor: 'rgba(153, 102, 255, 1)',
-                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                        borderWidth: 2,
-                    },
-                    {
-                        label: 'Logins',
-                        data: inicioLogins,
-                        borderColor: 'rgba(255, 159, 64, 1)',
-                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                        borderWidth: 2,
-                    },
-                    {
-                        label: 'Cadastros',
-                        data: inicioCadastros,
-                        borderColor: 'rgba(black, 1)',
-                        backgroundColor: 'rgba(190, 190, 190, 0.2)',
-                        borderWidth: 2,
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Gráfico de Atividades',
-                    }
-                },
-                scales: {
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Quantidade',
+            graficoInicial = new Chart(document.getElementById('myChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Depósitos',
+                            data: inicioDepositos,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderWidth: 2,
                         },
-                        beginAtZero: true,
-                    }
-                }
-            }
+                        {
+                            label: 'Visitas',
+                            data: inicioVisitas,
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderWidth: 2,
+                        },
+                        {
+                            label: 'FTDs',
+                            data: inicioFtds,
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                            borderWidth: 2,
+                        },
+                        {
+                            label: 'Logins',
+                            data: inicioLogins,
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderWidth: 2,
+                        },
+                        {
+                            label: 'Cadastros',
+                            data: inicioCadastros,
+                            borderColor: 'rgba(255, 159, 64, 1)',
+                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                            borderWidth: 2,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                },
+            });
         });
-    })
-    .catch(error => {
-        console.error('Erro ao carregar os dados do gráfico:', error);
+
+// Filtro de período para o gráfico
+    document.getElementById('periodo').addEventListener('change', (event) => {
+        event.preventDefault();
+
+        const periodo = document.getElementById('periodo').value;
+        const startDateInput = document.getElementById('startDate');
+        const endDateInput = document.getElementById('endDate');
+
+    let startDate = '';
+    let endDate = '';
+
+    switch (periodo) {
+        case '1':
+            startDate = new Date().toISOString().split('T')[0];
+            endDate = startDate;
+            break;
+        case '2':
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            startDate = yesterday.toISOString().split('T')[0];
+            endDate = new Date().toISOString().split('T')[0];
+            break;
+        case '3':
+            const sevenDaysAgo = new Date();
+            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+            startDate = sevenDaysAgo.toISOString().split('T')[0];
+            endDate = new Date().toISOString().split('T')[0];
+            break;
+        case '4':
+            const oneMonthAgo = new Date();
+            oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+            startDate = oneMonthAgo.toISOString().split('T')[0];
+            endDate = new Date().toISOString().split('T')[0];
+            break;
+        case '5':
+            const threeMonthsAgo = new Date();
+            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+            startDate = threeMonthsAgo.toISOString().split('T')[0];
+            endDate = new Date().toISOString().split('T')[0];
+            break;
+        default:
+            return;
+        }
+
+        startDateInput.value = startDate;
+        endDateInput.value = endDate;
     });
 
-    document.getElementById('buttonFiltrar').addEventListener('click', () => {
+        document.getElementById('buttonFiltrar').addEventListener('click', () => {
+        
         const periodo = document.getElementById('periodo').value;
         const startDate = document.getElementById('startDate').value;
         const endDate = document.getElementById('endDate').value;
 
-        console.log('Período:', periodo);
-        console.log('Data inicial:', startDate);
-        console.log('Data final:', endDate);
-
-        if (!periodo && (!startDate || !endDate)) {
-            alert('Por favor, selecione um período ou insira um intervalo de datas.');
-            return;
-        }
-
-        const apiGrafico = '{{  url('/api/grafico/filtro')  }}';
-
-        axios.post(apiGrafico, {periodo, startDate, endDate})
-            .then(response => {
-            console.log('Dados do servidor:', response.data);
-
-            atualizarGrafico(response.data);
-
-            })
-            .catch(error => console.error('Erro ao buscar dados: ', error));
-        });
-
-// grafico filtrado
-    let grafico;
-
-    function atualizarGrafico(data) {
-        const ctx = document.getElementById('myChart').getContext('2d');
-
-        const numsDepositos = [data.depositos];
-        const numsVisitas = [data.visitas];
-        const numsFtds = [data.ftds];
-        const numsLogins = [data.logins];
-        const numsCadastros = [data.cadastros];
-
-        if (graficoInicial) {
-            graficoInicial.destroy();
-        }
-
-        else if(grafico){
-            grafico.destroy();
-        }
-
-    grafico = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [
-                {
-                    label: 'Depósitos',
-                    data: numsDepositos,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderWidth: 2,
-                },
-                {
-                    label: 'Visitas',
-                    data: numsVisitas,
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderWidth: 2,
-                },
-                {
-                    label: 'FTDs',
-                    data: numsFtds,
-                    borderColor: 'rgba(153, 102, 255, 1)',
-                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                    borderWidth: 2,
-                },
-                {
-                    label: 'Logins',
-                    data: numsLogins,
-                    borderColor: 'rgba(255, 159, 64, 1)',
-                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                    borderWidth: 2,
-                },
-                {
-                    label: 'Cadastros',
-                    data: numsCadastros,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderWidth: 2,
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top'
-                },
-                title: {
-                    display: true,
-                    text: 'Gráfico de Atividades'
-                }
-            },
-            scales: {
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Quantidade'
-                    },
-                    beginAtZero: true
-                }
+        axios.post('/api/grafico/filtro', {
+            periodo: periodo,
+            startDate: startDate,
+            endDate: endDate
+        })
+        .then(response => {
+            if (graficoInicial) {
+                graficoInicial.destroy();
             }
-        }
-    });
-}
 
+            const data = response.data.data;
+
+            const visitas = [data.totalVisitas || 0];
+            const logins = [data.totalLogins || 0];
+            const cadastros = [data.totalCadastros || 0];
+            const ftds = [data.totalFtds || 0];
+            const depositos = [data.totalDepositos || 0];
+   
+            graficoInicial = new Chart(document.getElementById('myChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: [startDate, endDate],
+                    datasets: [
+                        {
+                            label: 'Visitas',
+                            data: visitas,
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderWidth: 2,
+                        },
+                        {
+                            label: 'Logins',
+                            data: logins,
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderWidth: 2,
+                        },
+                        {
+                            label: 'Cadastros',
+                            data: cadastros,
+                            borderColor: 'rgba(255, 159, 64, 1)',
+                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                            borderWidth: 2,
+                        },
+                        {
+                            label: 'FTDs',
+                            data: ftds,
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                            borderWidth: 2,
+                        },
+                        {
+                            label: 'Depósitos',
+                            data: depositos,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderWidth: 2,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                },
+            });
+        })
+        .catch(error => {
+        console.error('Erro ao obter dados do gráfico:', error);
+        });
+    });
     // cards
     const apiLogins = '{{  url('/api/logins')  }}';
     const apiVisitas = '{{  url('/api/visitas')  }}';
