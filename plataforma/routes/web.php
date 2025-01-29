@@ -25,7 +25,6 @@ Route::get('/api/ftds', [UserController::class, 'numFtds']);
 Route::get('/api/grafico/filtro', [GraficoController::class,'filtroData']);
 Route::get('/api/valor-total-depositos', [UserController::class, 'valorTotalDep']);
 Route::get('/api/valor-total-ftds', [UserController::class, 'valorTotalFtd']);
-Route::get('/api/grafico/inicial', [GraficoInicial::class,'getGraficoInicial']);
 
 // Rota POST para enviar o formulário de login
 Route::post('/login', [LoginController::class, 'login'])->middleware('throttle:login');
@@ -36,4 +35,7 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 // Rota POST para logout
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/grafico', [UserController::class,'pageGrafico'])->name('grafico');
+// Rota GET para pegar dados e incluir no gráfico
+Route::get('/api/grafico/inicial', [GraficoInicial::class, 'getGraficoInicial'])->middleware('auth');
+
+Route::get('/grafico', [UserController::class, 'pageGrafico'])->name('grafico')->middleware('auth');
