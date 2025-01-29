@@ -32,7 +32,7 @@
         </div>
     </header>
     
-    <main class="container justify-content-center d-flex my-4 mb-5 px-2">
+    <main class="container justify-content-center d-flex my-4 mb-4 px-2" style="width: 100%; height: 100%; max-width: 800px;">
         <canvas id="myChart" style="width: 100%; height: 250px;"></canvas>
     </main>
 
