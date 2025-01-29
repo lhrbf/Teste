@@ -24,7 +24,7 @@ class UserController extends Controller
     public function cadastroForm(){
         return view('cadastro');
     }
-
+    
     public function numUsers(){
         $totalUsuarios = User::count();
         return response()->json(['totalUsuarios' => $totalUsuarios]);

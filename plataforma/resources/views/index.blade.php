@@ -17,7 +17,7 @@
       <script>
         setTimeout(function() {
             window.location.href = "{{ route('login') }}";
-        }, 4000);
+        }, 3000);
     </script>
 </body>
 </html>

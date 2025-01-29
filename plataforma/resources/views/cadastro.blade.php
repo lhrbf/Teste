@@ -20,23 +20,24 @@
             </div>
             <div class="card-body">
                 <form method="POST" action="{{ route('register') }}">
+                    @csrf
                     <div class="row justify-content-center d-flex">
                         <div class="col-12 col-lg-5 col-md-4 mb-3">
                             <label for="name" class="form-label mb-1">Nome completo</label>
-                            <input type="text" class="form-control border-dark" id="name" placeholder="Digite seu nome completo" required>
+                            <input type="text" class="form-control border-dark" id="name" name="full_name" placeholder="Digite seu nome completo" required>
                         </div>
                             <div class="col-12 col-lg-5 col-md-4 mb-3">
                                 <label for="email" class="form-label mb-1">Email</label>
-                                <input type="email" class="form-control border-dark" id="email" placeholder="Digite o Email" required>
+                                <input type="email" class="form-control border-dark" id="email" name="email" placeholder="Digite o Email" required>
                             </div>
                     </div>
                     <div class="row justify-content-center d-flex">
                         <div class="col-12 col-lg-5 col-md-4 mb-3">
                             <label for="cpf" class="form-label mb-1">CPF</label>
-                            <input type="text" class="form-control border-dark" id="cpf" placeholder="Digite o CPF" required>
+                            <input type="text" class="form-control border-dark" id="cpf" name="cpf" placeholder="Digite o CPF" required>
                         </div>
                             <div class="col-12 col-lg-5 col-md-4 mb-3">
-                                <label for="estado" class="form-label mb-1">Selecione um estado</label>
+                                <label for="estado" class="form-label mb-1">Estado</label>
                                 <select id="estado" class="form-control border-dark" name="estado" required>
                                     <option value="">Selecione um estado</option>
                                 </select>
@@ -55,11 +56,11 @@
                     <div class="row justify-content-center d-flex">
                         <div class="col-12 col-lg-5 col-md-4 mb-3">
                             <label for="numero" class="form-label mb-1">Número</label>
-                            <input type="number" id="numero" class="form-control border-dark" placeholder="Número da residência" required>
+                            <input type="number" id="numero" class="form-control border-dark" name="numero_casa" placeholder="Número da residência" required>
                         </div>
                             <div class="col-12 col-lg-5 col-md-4 mb-3">
                                 <label for="inputNumber" class="form-label mb-1">Número de telefone</label>
-                                <input type="tel" id="inputNumber" class="form-control border-dark" placeholder="Digite o número de telefone" required>
+                                <input type="tel" id="inputNumber" name="telefone" class="form-control border-dark" placeholder="Digite o número de telefone" required>
                             </div>
                     </div>
                     <div class="row justify-content-center d-flex">
@@ -91,10 +92,12 @@
         const im = new Inputmask('99999-999');
         im.mask(cepInput);
 
-        axios.get('https://brasilapi.com.br/api/v1/states')
+        axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
         .then(response => {
             const selectEstado = document.getElementById('estado');
             const estados = response.data
+
+            console.log(estados);
 
             estados.forEach(estado => {
                 const option = document.createElement('option');

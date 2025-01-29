@@ -14,12 +14,12 @@
                     LOGIN
                 </div>
                 <div class="card-body bg-body-tertiary">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form id="loginForm" method="POST" action="{{ route('login') }}">
                         @csrf
                         
                         <div class="row justify-content-center d-flex">
                             <div class="col-12 col-md-10 col-lg-7 mb-3">
-                                <label for="email" class="form-label mb-1">Email</label>
+                                <label for="email" id="labelEmail" class="form-label mb-1">Email</label>
                                 <input type="email" name="email" class="form-control border-dark" id="email" placeholder="Digite o Email" autocomplete="email" required>
                                 @error('email')
                                 <span class="text-danger">{{ $message }}</span>
@@ -27,8 +27,11 @@
                             </div>
         
                             <div class="col-12 col-md-10 col-lg-7 mb-3">
-                                <label for="inputPassword" class="form-label mb-1">Senha</label>
-                                <input type="password" name="password" id="inputPassword" class="form-control border-dark" autocomplete="current-password" required>
+                                <label for="password" id="labelPassword" class="form-label mb-1">Senha</label>
+                                <input type="password" name="password" id="password" class="form-control border-dark" autocomplete="current-password" required>
+                                @error('password')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
         
                             <div class="col-12 col-md-5 col-lg-6 mb-3 text-center">
@@ -41,7 +44,6 @@
                         <div class="col-12 justify-content-center d-flex text-center">
                             <a href="{{ route('cadastro')}}" class="btn btn-outline-primary">Não tem login? Clique aqui</a>
                         </div>
-                        
                     </div>
                 </div>
             </div>
@@ -49,5 +51,29 @@
                 
         <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.6/dist/inputmask.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+        <script>
+            document.getElementById('loginForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                console.log('Formulário enviado');
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        axios.post('/login', {
+            email: email,
+            password: password
+        })
+        .then(function (response) {
+            if (response.status === 200) {
+                window.location.href = '/grafico';
+            }
+        })
+        .catch(function (error) {
+        console.log('Erro na requisição', error);
+    });
+    });
+        </script>
+    
     </body>
 </html>
