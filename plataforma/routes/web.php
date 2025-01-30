@@ -8,16 +8,20 @@ use App\Http\Controllers\Api\GraficoInicial;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
-
+// Rota GET raíz
 Route::get('/', [UserController::class, 'index']);
-Route::get('/grafico', [UserController::class, 'pageGrafico'])->name('grafico')->middleware('auth');
 
+// Rota GET protegida para mostrar o gráfico
+Route::get('/grafico', [UserController::class, 'pageGrafico'])->name('grafico')->middleware('auth');
+Route::get('/api/grafico/inicial', [GraficoInicial::class, 'getGraficoInicial'])->middleware('auth');
+
+// Rotas GET para as páginas de cadastro e login. Obs: Apenas para não autenticados 
 Route::middleware('guest')->group(function () {
     Route::get('/cadastro', [UserController::class,'cadastroForm'])->name('cadastro');
     Route::get('/entrar', [userController::class, 'showLoginForm'])->name('entrar');
 });
 
-// Rotas Get de API para os dados
+// Rotas GET de API para os dados
 Route::get('/api/visitas', [UserController::class, 'numVisitas']);
 Route::get('/api/logins', [UserController::class, 'numLogins']);
 Route::get('/api/cadastros', [UserController::class, 'numCadastros']);
@@ -25,9 +29,8 @@ Route::get('/api/depositos', [UserController::class, 'numDepositos']);
 Route::get('/api/ftds', [UserController::class, 'numFtds']);
 Route::get('/api/valor-total-depositos', [UserController::class, 'valorTotalDep']);
 Route::get('/api/valor-total-ftds', [UserController::class, 'valorTotalFtd']);
-Route::get('/api/grafico/inicial', [GraficoInicial::class, 'getGraficoInicial'])->middleware('auth');
 
-// Rotas Post de API para os dados
+// Rotas POST de API para os dados
 Route::post('/api/grafico/filtro', [GraficoController::class,'filtroData']);
 
 // Rota POST para enviar o formulário de login
