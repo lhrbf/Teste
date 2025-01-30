@@ -106,6 +106,8 @@
     const apiValorDepositos = '/api/valor-total-depositos';
     const apiValorFtds = '/api/valor-total-ftds';
 
+    let myChart;
+
     Promise.all([
         axios.get(apiLogins),
         axios.get(apiVisitas),
@@ -144,7 +146,7 @@
             document.getElementById('depositosValor').innerHTML = valorFormatadoDepositos;
 
             // Criar gráfico
-            new Chart(document.getElementById('myChart').getContext('2d'), {
+            myChart = new Chart(document.getElementById('myChart').getContext('2d'), {
                 type: 'bar',
                 data: {
                     labels: ['Dados filtrados'],
@@ -200,7 +202,7 @@
             console.error('Erro ao obter os dados:', error);
         });
 
-// Filtro por período
+    // Filtro por período
     document.getElementById('buttonFiltrar').addEventListener('click', () => {
     
         const periodo = document.getElementById('periodo').value;
@@ -254,6 +256,15 @@
         })
         .then(response => {
             console.log('Dados filtrados:', response.data);
+
+        myChart.data.datasets[0].data = [response.data.data.depositos];
+        myChart.data.datasets[1].data = [response.data.data.visitas];
+        myChart.data.datasets[2].data = [response.data.data.ftds];
+        myChart.data.datasets[3].data = [response.data.data.logins];
+        myChart.data.datasets[4].data = [response.data.data.cadastros];
+
+        myChart.update();
+
         })
         .catch(error => {
             console.error('Erro ao filtrar os dados:', error);
