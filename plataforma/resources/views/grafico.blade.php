@@ -33,7 +33,7 @@
     </header>
     
     <main class="container justify-content-center d-flex my-4 mb-4 px-2" style="width: 100%; height: 100%; max-width: 800px;">
-        <canvas id="myChart" style="width: 100%;"></canvas>
+        <canvas id="myChart" style="width: 100%"></canvas>
     </main>
 
     <footer class="justify-content-center d-flex my-5">
@@ -144,6 +144,7 @@
             document.getElementById('depositosValor').innerHTML = valorFormatadoDepositos;
 
             // Criar gráfico
+        let myChart = new;
             new Chart(document.getElementById('myChart').getContext('2d'), {
                 type: 'bar',
                 data: {
@@ -253,7 +254,17 @@
             endDate: endDate
         })
         .then(response => {
-            console.log('Dados filtrados:', response.data);
+            const { cadastros, depositos, ftds, logins, visitas } = response.data;
+
+                myChart.data.datasets[0].data = [
+                    depositos,
+                    visitas,
+                    ftds,
+                    logins,
+                    cadastros
+                ];
+
+            myChart.update();
         })
         .catch(error => {
             console.error('Erro ao filtrar os dados:', error);
