@@ -211,29 +211,29 @@
         let endDate = '';
 
         switch (periodo) {
-            case '1': // Hoje
+            case '1':
                 startDate = new Date().toISOString().split('T')[0];
                 endDate = startDate;
                 break;
-            case '2': // Ontem
+            case '2':
                 const yesterday = new Date();
                 yesterday.setDate(yesterday.getDate() - 1);
                 startDate = yesterday.toISOString().split('T')[0];
                 endDate = startDate;
                 break;
-            case '3': // Sete dias atrás
+            case '3':
                 const sevenDaysAgo = new Date();
                 sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
                 startDate = sevenDaysAgo.toISOString().split('T')[0];
                 endDate = new Date().toISOString().split('T')[0];
                 break;
-            case '4': // Um mês
+            case '4':
                 const oneMonthAgo = new Date();
                 oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
                 startDate = oneMonthAgo.toISOString().split('T')[0];
                 endDate = new Date().toISOString().split('T')[0];
                 break;
-            case '5': // Três meses
+            case '5':
                 const threeMonthsAgo = new Date();
                 threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
                 startDate = threeMonthsAgo.toISOString().split('T')[0];
@@ -247,7 +247,7 @@
         document.getElementById('startDate').value = startDate;
         document.getElementById('endDate').value = endDate;
 
-        // Fazer a requisição para o filtro
+        // Fazer a requisição POST para o filtro
         const urlFiltro = '/api/grafico/filtro'
         axios.post(urlFiltro, {
             periodo: periodo,
