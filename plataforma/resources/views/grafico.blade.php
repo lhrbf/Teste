@@ -33,7 +33,7 @@
     </header>
     
     <main class="container justify-content-center d-flex my-4 mb-4 px-2" style="width: 100%; height: 100%; max-width: 800px;">
-        <canvas id="myChart" style="width: 100%; height: 250px;"></canvas>
+        <canvas id="myChart" style="width: 100%;"></canvas>
     </main>
 
     <footer class="justify-content-center d-flex my-5">
@@ -97,220 +97,14 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-// Gráfico inicial
-    let graficoInicial;
-
-    const labels = ['Dados filtrados por período']
-
-    axios.get('/api/grafico/inicial')
-        .then(response => {
-            const data = response.data.data;
-
-            const inicioDepositos = [data.totalDepositos];
-            const inicioVisitas = [data.totalVisitas];
-            const inicioFtds = [data.totalFtds];
-            const inicioLogins = [data.totalLogins];
-            const inicioCadastros = [data.totalCadastros];
-
-            graficoInicial = new Chart(document.getElementById('myChart').getContext('2d'), {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'Depósitos',
-                            data: inicioDepositos,
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            borderWidth: 2,
-                        },
-                        {
-                            label: 'Visitas',
-                            data: inicioVisitas,
-                            borderColor: 'rgba(255, 99, 132, 1)',
-                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                            borderWidth: 2,
-                        },
-                        {
-                            label: 'FTDs',
-                            data: inicioFtds,
-                            borderColor: 'rgba(153, 102, 255, 1)',
-                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                            borderWidth: 2,
-                        },
-                        {
-                            label: 'Logins',
-                            data: inicioLogins,
-                            borderColor: 'rgba(54, 162, 235, 1)',
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                            borderWidth: 2,
-                        },
-                        {
-                            label: 'Cadastros',
-                            data: inicioCadastros,
-                            borderColor: 'rgba(255, 159, 64, 1)',
-                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                            borderWidth: 2,
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                        },
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                        },
-                    },
-                },
-            });
-        });
-
-// Filtro de período para o gráfico
-    document.getElementById('periodo').addEventListener('change', (event) => {
-        event.preventDefault();
-
-        const periodo = document.getElementById('periodo').value;
-        const startDateInput = document.getElementById('startDate');
-        const endDateInput = document.getElementById('endDate');
-
-    let startDate = '';
-    let endDate = '';
-
-    switch (periodo) {
-        case '1':
-            startDate = new Date().toISOString().split('T')[0];
-            endDate = startDate;
-            break;
-        case '2':
-            const yesterday = new Date();
-            yesterday.setDate(yesterday.getDate() - 1);
-            startDate = yesterday.toISOString().split('T')[0];
-            endDate = new Date().toISOString().split('T')[0];
-            break;
-        case '3':
-            const sevenDaysAgo = new Date();
-            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-            startDate = sevenDaysAgo.toISOString().split('T')[0];
-            endDate = new Date().toISOString().split('T')[0];
-            break;
-        case '4':
-            const oneMonthAgo = new Date();
-            oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-            startDate = oneMonthAgo.toISOString().split('T')[0];
-            endDate = new Date().toISOString().split('T')[0];
-            break;
-        case '5':
-            const threeMonthsAgo = new Date();
-            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
-            startDate = threeMonthsAgo.toISOString().split('T')[0];
-            endDate = new Date().toISOString().split('T')[0];
-            break;
-        default:
-            return;
-        }
-
-        startDateInput.value = startDate;
-        endDateInput.value = endDate;
-    });
-
-        document.getElementById('buttonFiltrar').addEventListener('click', () => {
-        
-        const periodo = document.getElementById('periodo').value;
-        const startDate = document.getElementById('startDate').value;
-        const endDate = document.getElementById('endDate').value;
-
-        axios.post('/api/grafico/filtro', {
-            periodo: periodo,
-            startDate: startDate,
-            endDate: endDate
-        })
-        .then(response => {
-            if (graficoInicial) {
-                graficoInicial.destroy();
-            }
-
-            const data = response.data.data;
-
-            const visitas = [data.totalVisitas || 0];
-            const logins = [data.totalLogins || 0];
-            const cadastros = [data.totalCadastros || 0];
-            const ftds = [data.totalFtds || 0];
-            const depositos = [data.totalDepositos || 0];
-   
-            graficoInicial = new Chart(document.getElementById('myChart').getContext('2d'), {
-                type: 'bar',
-                data: {
-                    labels: [startDate, endDate],
-                    datasets: [
-                        {
-                            label: 'Visitas',
-                            data: visitas,
-                            borderColor: 'rgba(255, 99, 132, 1)',
-                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                            borderWidth: 2,
-                        },
-                        {
-                            label: 'Logins',
-                            data: logins,
-                            borderColor: 'rgba(54, 162, 235, 1)',
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                            borderWidth: 2,
-                        },
-                        {
-                            label: 'Cadastros',
-                            data: cadastros,
-                            borderColor: 'rgba(255, 159, 64, 1)',
-                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                            borderWidth: 2,
-                        },
-                        {
-                            label: 'FTDs',
-                            data: ftds,
-                            borderColor: 'rgba(153, 102, 255, 1)',
-                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                            borderWidth: 2,
-                        },
-                        {
-                            label: 'Depósitos',
-                            data: depositos,
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            borderWidth: 2,
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                        },
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                        },
-                    },
-                },
-            });
-        })
-        .catch(error => {
-        console.error('Erro ao obter dados do gráfico:', error);
-        });
-    });
-    // cards
-    const apiLogins = '{{  url('/api/logins')  }}';
-    const apiVisitas = '{{  url('/api/visitas')  }}';
-    const apiCadastros = '{{  url('/api/cadastros')  }}';
-    const apiFtds = '{{  url('/api/ftds')  }}';
-    const apiDepositos = '{{  url('/api/depositos')  }}';
-    const apiValorDepositos = '{{  url('/api/valor-total-depositos')  }}';
-    const apiValorFtds = '{{  url('/api/valor-total-ftds')  }}';
+// APIS GET dos dados totais
+    const apiLogins = '/api/logins';
+    const apiVisitas = '/api/visitas';
+    const apiCadastros = '/api/cadastros';
+    const apiFtds = '/api/ftds';
+    const apiDepositos = '/api/depositos';
+    const apiValorDepositos = '/api/valor-total-depositos';
+    const apiValorFtds = '/api/valor-total-ftds';
 
     Promise.all([
         axios.get(apiLogins),
@@ -322,8 +116,6 @@
         axios.get(apiValorFtds)
     ])
         .then(response => {
-            console.log(response); // retorno dos valores da API(GET) em JSON
-            
             const totalLogins = response[0].data.totalLogins;
             const totalVisitas = response[1].data.totalVisitas;
             const totalCadastros = response[2].data.totalCadastros;
@@ -342,6 +134,7 @@
                 currency: 'BRL' 
             }).format(valorTotalFtds);
 
+            // Cards
             document.getElementById('logins').innerHTML = totalLogins;
             document.getElementById('visitas').innerHTML = totalVisitas;
             document.getElementById('cadastros').innerHTML = totalCadastros;
@@ -349,10 +142,123 @@
             document.getElementById('ftdsValor').innerHTML = valorFormatadoFtds;
             document.getElementById('depositos').innerHTML = totalDepositos;
             document.getElementById('depositosValor').innerHTML = valorFormatadoDepositos;
-        })
-            .catch(error => {  
-                console.error('Erro ao obter os dados:', error);
+
+            // Criar gráfico
+            new Chart(document.getElementById('myChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['Dados filtrados'],
+                    datasets: [
+                        {
+                            label: 'Depósitos',
+                            data: [totalDepositos],
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 2,
+                        },
+                        {
+                            label: 'Visitas',
+                            data: [totalVisitas],
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 2,
+                        },
+                        {
+                            label: 'FTDs',
+                            data: [totalFtds],
+                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            borderWidth: 2,
+                        },
+                        {
+                            label: 'Logins',
+                            data: [totalLogins],
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 2,
+                        },
+                        {
+                            label: 'Cadastros',
+                            data: [totalCadastros],
+                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                            borderColor: 'rgba(255, 159, 64, 1)',
+                            borderWidth: 2,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
             });
+        })
+        .catch(error => {  
+            console.error('Erro ao obter os dados:', error);
+        });
+
+// Filtro por período
+    document.getElementById('buttonFiltrar').addEventListener('click', () => {
+    
+        const periodo = document.getElementById('periodo').value;
+
+        let startDate = '';
+        let endDate = '';
+
+        switch (periodo) {
+            case '1': // Hoje
+                startDate = new Date().toISOString().split('T')[0];
+                endDate = startDate;
+                break;
+            case '2': // Ontem
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                startDate = yesterday.toISOString().split('T')[0];
+                endDate = startDate;
+                break;
+            case '3': // Sete dias atrás
+                const sevenDaysAgo = new Date();
+                sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+                startDate = sevenDaysAgo.toISOString().split('T')[0];
+                endDate = new Date().toISOString().split('T')[0];
+                break;
+            case '4': // Um mês
+                const oneMonthAgo = new Date();
+                oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+                startDate = oneMonthAgo.toISOString().split('T')[0];
+                endDate = new Date().toISOString().split('T')[0];
+                break;
+            case '5': // Três meses
+                const threeMonthsAgo = new Date();
+                threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+                startDate = threeMonthsAgo.toISOString().split('T')[0];
+                endDate = new Date().toISOString().split('T')[0];
+                break;
+            default:
+                alert("Selecione um período válido.");
+                return;
+        }
+
+        document.getElementById('startDate').value = startDate;
+        document.getElementById('endDate').value = endDate;
+
+        // Fazer a requisição para o filtro
+        const urlFiltro = '/api/grafico/filtro'
+        axios.post(urlFiltro, {
+            periodo: periodo,
+            startDate: startDate,
+            endDate: endDate
+        })
+        .then(response => {
+            console.log('Dados filtrados:', response.data);
+        })
+        .catch(error => {
+            console.error('Erro ao filtrar os dados:', error);
+        });
+    });
     </script>
 </body>
 </html>

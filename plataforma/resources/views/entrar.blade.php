@@ -56,8 +56,9 @@
                 }
 
                 const data = { email, password };
+                const url = '/login'
 
-                axios.post('/login', data,)
+                axios.post(url, data,)
                 .then(response => {
                     if (response.data.success) {
                         window.location.href = '/grafico';

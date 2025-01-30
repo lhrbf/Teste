@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\GraficoController;
-use App\Http\Controllers\Api\GraficoInicial;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\PageController;
@@ -13,14 +12,13 @@ use App\Http\Controllers\PageController;
 Route::get('/', [PageController::class, 'index']);
 
 // Rota GET protegida para mostrar o gráfico
-Route::get('/grafico', [PageController::class, 'pageGrafico'])->name('grafico')->middleware('auth');
-Route::get('/api/grafico/inicial', [GraficoInicial::class, 'getGraficoInicial'])->middleware('auth');
+Route::get('/grafico', [PageController::class, 'pageGrafico'])->name('grafico');//->middleware('auth');
 
-// Rotas GET para as páginas de cadastro e login. Obs: Apenas para não autenticados 
-Route::middleware('guest')->group(function () {
+// Rotas GET para as páginas de cadastro e login. Obs: Apenas para não autenticados
+/*Route::middleware('guest')->group(function () {
     Route::get('/cadastro', [PageController::class,'cadastroForm'])->name('cadastro');
     Route::get('/entrar', [PageController::class, 'showLoginForm'])->name('entrar');
-});
+});*/
 
 // Rotas GET de API para os dados
 Route::get('/api/visitas', [UserController::class, 'numVisitas']);
