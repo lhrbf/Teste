@@ -10,7 +10,7 @@ use App\Http\Controllers\Auth\RegisterController;
 
 
 Route::get('/', [UserController::class, 'index']);
-Route::get('/grafico', [UserController::class, 'pageGrafico'])->name('grafico'); //->middleware('auth');
+Route::get('/grafico', [UserController::class, 'pageGrafico'])->name('grafico')->middleware('auth');
 
 Route::middleware('guest')->group(function () {
     Route::get('/cadastro', [UserController::class,'cadastroForm'])->name('cadastro');
@@ -25,7 +25,7 @@ Route::get('/api/depositos', [UserController::class, 'numDepositos']);
 Route::get('/api/ftds', [UserController::class, 'numFtds']);
 Route::get('/api/valor-total-depositos', [UserController::class, 'valorTotalDep']);
 Route::get('/api/valor-total-ftds', [UserController::class, 'valorTotalFtd']);
-Route::get('/api/grafico/inicial', [GraficoInicial::class, 'getGraficoInicial']); //->middleware('auth');
+Route::get('/api/grafico/inicial', [GraficoInicial::class, 'getGraficoInicial'])->middleware('auth');
 
 // Rotas Post de API para os dados
 Route::post('/api/grafico/filtro', [GraficoController::class,'filtroData']);
