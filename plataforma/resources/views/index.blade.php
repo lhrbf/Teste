@@ -16,7 +16,7 @@
 
       <script>
         setTimeout(function() {
-            window.location.href = "{{ route('grafico') }}";
+            window.location.href = "{{ route('entrar') }}";
         }, 2000);
     </script>
 </body>

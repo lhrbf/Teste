@@ -12,24 +12,7 @@ use App\Models\Login;
 use App\Models\Visita;
 
 class UserController extends Controller
-{
-    public function index(){
-        return view('index'); 
-    }
-
-    public function pageGrafico(){
-        return view('grafico');
-    }
-
-    public function cadastroForm(){
-        return view('cadastro');
-    }
-
-    public function showLoginForm()
-    {
-        return view('entrar');
-    }
-    
+{   
     public function numUsers(){
         $totalUsuarios = User::count();
         return response()->json(['totalUsuarios' => $totalUsuarios]);

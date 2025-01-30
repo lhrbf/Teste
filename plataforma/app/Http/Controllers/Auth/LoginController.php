@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illluminate\Support\Facades\og;
 
 class LoginController extends Controller
 {
@@ -43,8 +42,8 @@ class LoginController extends Controller
         return redirect('/entrar');
     }
 
-    public function __construct()
+    /*public function __construct()
     {
-        $this->middleware('auth')->except(['showLoginForm', 'entrar']); 
-    }
+        $this->middleware('auth'); 
+    }*/
 }
