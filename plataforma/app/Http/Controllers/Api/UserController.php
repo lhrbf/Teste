@@ -24,6 +24,11 @@ class UserController extends Controller
     public function cadastroForm(){
         return view('cadastro');
     }
+
+    public function showLoginForm()
+    {
+        return view('entrar');
+    }
     
     public function numUsers(){
         $totalUsuarios = User::count();

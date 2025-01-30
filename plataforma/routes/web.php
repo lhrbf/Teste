@@ -14,7 +14,7 @@ Route::get('/grafico', [UserController::class, 'pageGrafico'])->name('grafico');
 
 Route::middleware('guest')->group(function () {
     Route::get('/cadastro', [UserController::class,'cadastroForm'])->name('cadastro');
-    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::get('/entrar', [userController::class, 'showLoginForm'])->name('entrar');
 });
 
 // Rotas Get de API para os dados

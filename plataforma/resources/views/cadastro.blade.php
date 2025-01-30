@@ -12,108 +12,101 @@
     <div>
         <a href="javascript:history.back()"><i id="voltarBtn" class="bi bi-arrow-return-left text-primary fs-1 py-0 px-2 mt-2 ms-2 btn btn-outline-primary"></i></a>
     </div>
-    
-    <div class="container">
-        <div class="card justify-content-center d-flex my-5 border-black">
-            <div class="card-header bg-dark text-white fw-medium border-black">
-              CADASTRO
-            </div>
-            <div class="card-body">
-                <form method="POST" action="{{ route('register') }}">
-                    @csrf
+
+        <div class="container">
+            <form id="form" name="form">
+                @csrf
+                <div class="row justify-content-center d-flex">
+                    <div class="col-12 col-lg-5 col-md-4 mb-3">
+                        <label for="inputName" class="form-label mb-1">Nome completo</label>
+                        <input type="text" class="form-control border-dark" id="inputName" name="inputName" placeholder="Digite seu nome completo" required>
+                    </div>
+                    <div class="col-12 col-lg-5 col-md-4 mb-3">
+                        <label for="inputEmail" class="form-label mb-1">Email</label>
+                        <input type="inputEmail" class="form-control border-dark" id="inputEmail" name="inputEmail" placeholder="Digite o Email" required>
+                    </div>
+                </div>
+
                     <div class="row justify-content-center d-flex">
                         <div class="col-12 col-lg-5 col-md-4 mb-3">
-                            <label for="name" class="form-label mb-1">Nome completo</label>
-                            <input type="text" class="form-control border-dark" id="name" name="full_name" placeholder="Digite seu nome completo" required>
+                            <label for="inputCpf" class="form-label mb-1">CPF</label>
+                            <input type="text" class="form-control border-dark" id="InputCpf" name="inputCpf" placeholder="Digite o CPF" required>
                         </div>
-                            <div class="col-12 col-lg-5 col-md-4 mb-3">
-                                <label for="email" class="form-label mb-1">Email</label>
-                                <input type="email" class="form-control border-dark" id="email" name="email" placeholder="Digite o Email" required>
-                            </div>
+                        <div class="col-12 col-lg-5 col-md-4 mb-3">
+                            <label for="inputEstado" class="form-label mb-1">Estado</label>
+                            <select id="inputEstado" class="form-control border-dark" name="inputEstado" required>
+                                <option value="">Selecione um estado</option>
+                            </select>
+                        </div>
                     </div>
+
                     <div class="row justify-content-center d-flex">
                         <div class="col-12 col-lg-5 col-md-4 mb-3">
-                            <label for="cpf" class="form-label mb-1">CPF</label>
-                            <input type="text" class="form-control border-dark" id="cpf" name="cpf" placeholder="Digite o CPF" required>
+                            <label for="inputCep" class="form-label mb-1">CEP</label>
+                            <input type="number" id="inputCep" class="form-control border-dark" name="inputCep" placeholder="Digite o CEP" required>
                         </div>
-                            <div class="col-12 col-lg-5 col-md-4 mb-3">
-                                <label for="estado" class="form-label mb-1">Estado</label>
-                                <select id="estado" class="form-control border-dark" name="estado" required>
-                                    <option value="">Selecione um estado</option>
-                                </select>
-                            </div>
+                        <div class="col-12 col-lg-5 col-md-4 mb-3">
+                            <label for="inputRua" class="form-label mb-1">Rua</label>
+                            <input type="text" id="inputRua" class="form-control border-dark" name="inputRua" placeholder="Digite o nome da rua" required>
+                        </div>
                     </div>
+
                     <div class="row justify-content-center d-flex">
                         <div class="col-12 col-lg-5 col-md-4 mb-3">
-                            <label for="cep" class="form-label mb-1">CEP</label>
-                            <input type="text" id="cep" class="form-control border-dark" name="cep" placeholder="Digite o CEP" required>
+                            <label for="numero_casa" class="form-label mb-1">Número</label>
+                            <input type="number" id="numero_casa" class="form-control border-dark" name="numero_casa" placeholder="Número da residência" required>
                         </div>
-                            <div class="col-12 col-lg-5 col-md-4 mb-3">
-                                <label for="rua" class="form-label mb-1">Rua</label>
-                                <input type="text" id="rua" class="form-control border-dark" name="rua" placeholder="Digite o nome da rua" required>
-                            </div>
-                    </div>
-                    <div class="row justify-content-center d-flex">
                         <div class="col-12 col-lg-5 col-md-4 mb-3">
-                            <label for="numero" class="form-label mb-1">Número</label>
-                            <input type="number" id="numero" class="form-control border-dark" name="numero_casa" placeholder="Número da residência" required>
+                            <label for="inputNumero" class="form-label mb-1">Número de telefone</label>
+                            <input type="tel" id="inputNumero" name="inputNumero" class="form-control border-dark" placeholder="Digite o número de telefone" required>
                         </div>
-                            <div class="col-12 col-lg-5 col-md-4 mb-3">
-                                <label for="inputNumber" class="form-label mb-1">Número de telefone</label>
-                                <input type="tel" id="inputNumber" name="telefone" class="form-control border-dark" placeholder="Digite o número de telefone" required>
-                            </div>
                     </div>
+
                     <div class="row justify-content-center d-flex">
                         <div class="col-12 col-lg-5 col-md-4 mb-3">
                             <label for="inputPassword" class="form-label mb-1">Senha</label>
-                            <input type="password" id="inputPassword" name="password" class="form-control border-dark" placeholder="Digite uma senha" required>
+                            <input type="password" id="inputPassword" name="inputPassword" class="form-control border-dark" placeholder="Digite uma senha" required>
                         </div>
-                            <div class="col-12 col-lg-5 col-md-4 mb-3">
-                                <label for="inputPasswordConfirmation" class="form-label mb-1">Confirme a senha</label>
-                                <input type="password" id="inputPasswordConfirmation" name="passwordConfirmation" class="form-control border-dark" placeholder="Confirme a senha" required>
-                            </div>
+                        <div class="col-12 col-lg-5 col-md-4 mb-3">
+                            <label for="inputPasswordConfirmation" class="form-label mb-1">Confirme a senha</label>
+                            <input type="password" id="inputPasswordConfirmation" name="inputPasswordConfirmation" class="form-control border-dark" placeholder="Confirme a senha" required>
+                        </div>
                     </div>
+
                     <div class="mt-3 mb-2 justify-content-center d-flex">
                         <button type="submit" class="btn btn-primary w-auto px-4 fs-5">Cadastrar</button>
                     </div>
                 </form>
             </div>
-        </div>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.6/dist/inputmask.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
         let cpfMask = new Inputmask("999.999.999-99");
-        cpfMask.mask(document.getElementById("cpf"));
+        cpfMask.mask(document.getElementById("inputCpf"));
 
-        const cepInput = document.getElementById('cep');
+        const cepInput = document.getElementById('inputCep');
         const im = new Inputmask('99999-999');
         im.mask(cepInput);
 
-        axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
-        .then(response => {
-            const selectEstado = document.getElementById('estado');
-            const estados = response.data
-
-            console.log(estados);
-
-            estados.forEach(estado => {
-                const option = document.createElement('option');
-                option.value = estado.sigla;
-                option.textContent = estado.nome;
-                selectEstado.appendChild(option);
-            });
-        })
-        .catch(error => console.log('Erro ao carregar estados: ', error));
+        const fullName = document.getElementById('inputName').value;
+        const email = docuemnt.getElementById('inputEmail').value;
+        const password = document.getElementById('inputPassword').value;
+        const confirmPassword = document.getElementById('inputPasswordConfirmation').value;
+        const selectEstado = document.getElementById('inputEstado').value;
+        const numeroCasa = document.getElementById('numero_casa').value;
+        const numeroTel = document.getElementById('inputNumero').value;
+        const estados = response.data;
+        const form = document.querySelector('form');
 
         document.getElementById('cep').addEventListener('blur', () => {
             const cep = cepInput.value.replace('-', '').replace('.', '');
+        
             if (cep.length === 8) {
                 axios.get(`https://viacep.com.br/ws/${cep}/json/`)
                 .then(response => {
-                    const data = response.data;
+                    const dataEstado = response.data;
                     if (!data.erro) {
                         document.getElementById('rua').value = data.logradouro;
                         document.getElementById('estado').value = data.uf;
@@ -125,16 +118,65 @@
             }
         });
 
-        const form = document.querySelector('form');
-            form.addEventListener('submit', (event) => {
-                const password = document.getElementById('inputPassword').value;
-                const confirmPassword = document.getElementById('inputPasswordConfirmation').value;
+        axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+        .then(response => {
+            console.log(estados);
 
-            if (password !== confirmPassword) {
-                event.preventDefault();
+            estados.forEach(estado => {
+                const option = document.createElement('option');
+                option.value = estado.sigla;
+                option.textContent = estado.nome;
+                selectEstado.appendChild(option);
+            });
+        })
+        .catch(error => console.log('Erro ao carregar estados: ', error));
+
+        form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        if(email.value === "" || !isEmailValid(email)){
+                alert('Insira um email válido!')
+                return;
+                }
+
+        if (password !== confirmPassword) {
                 alert('As senhas não coincidem!');
+                return;
+                }
+
+        function isEmailValid(email){
+                    const emailRegex = new RegExp(
+                        /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,}$/
+                    );
+
+                    if(emailRegex.teste(email)){
+                        return true;
+                    }
+                    return false;
+                }
+
+            const data = {
+                fullName,
+                email,
+                password,
+                confirmPassword,
+                selectEstado,
+                numeroCasa,
+                numeroTel,
+                estados,
             }
-        });
+
+        axios.post('/register', data)
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.error("Erro: ", error);
+        })
+
+        form.submit()
+    });
+
     </script>
 </body>
 </html>

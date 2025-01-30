@@ -9,11 +9,6 @@ use Illluminate\Support\Facades\og;
 
 class LoginController extends Controller
 {
-    public function showLoginForm()
-    {
-        return view('login');
-    }
-
     public function login(Request $request)
     {
         try {
@@ -45,11 +40,11 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/entrar');
     }
 
     public function __construct()
     {
-        $this->middleware('auth')->except(['showLoginForm', 'login']); 
+        $this->middleware('auth')->except(['showLoginForm', 'entrar']); 
     }
 }
